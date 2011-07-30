@@ -30,7 +30,14 @@
             <div class="grid_6 column submit-project">
                 <form action="/" method="post" accept-charset="utf-8">
                     {% csrf_token %}
-                    {{ form.url }}
+                    <div class="{% if form.url.errors %}field-error{% endif %}">
+                        {% if form.url.errors %}
+                            <div class="error-message">
+                                {{ form.url.errors }}
+                            </div>
+                        {% endif %}
+                        {{ form.url }}
+                    </div>
                     <input type="submit" value="Manouche us"/>
                 </form>
             </div>
@@ -48,15 +55,15 @@
     <script src="{{ STATIC_URL }}js/mootools-core.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" language="javascript" charset="utf-8">
     //<![CDATA[
-        $("id_url").addEvent("blur", function(){
-            var text = this.get("text");
-            if ( text === null) {
-                this.set("value", "Submit your project if you are brave!");
-            }
-        });
-
-        $("id_url").addEvent("focus", function() {
-            this.set("value", "")
+        $("id_url").addEvents({
+                                "focus": function() {
+                                    this.set("value", "")
+                                },
+                                "blur": function() {
+                                    if ($("id_url").get("value") === "") {
+                                        $("id_url").set("value","Submit your project if you are brave!")
+                                    }
+                                }
         });
     //]]>
     </script>
