@@ -1,1 +1,32 @@
 {% extends "base.html" %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css" type="text/css" media="screen" charset="utf-8"/>
+{% endblock %}
+
+{% block header %}
+<div class="header">
+    <h2>Manouche Us</h2>
+</div>
+{% endblock %}
+
+{% block menu %}
+<div class="menu">
+
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="grid_12 main">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+</div>
+{% endblock %}
