@@ -5,50 +5,28 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css" type="text/css" media="screen" charset="utf-8"/>
 {% endblock %}
 
-{% block header %}
-<div class="header">
-    <h1>Manouche Us</h1>
-
-    <div class="menu">
-        <ul>
-            <li><a href="#">about</a></li>
-            <li><a href="#">contribute</a></li>
-        </ul>
-    </div>
-</div>
-{% endblock %}
-
 {% block content %}
-<div class="content">
-    <div class="row">
-        <div class="grid_12 main">
-            <div class="grid_6 column description">
-                <h2>Manouche your project!</h2>
-                <p>Your project is great, rigth? Your layout is awesome? But your code, it's ok? Are you sure?</p>
-                <p>So I challenge you to submit it to more rigorous analysis and see if you tell the truth!</p>
-            </div>
-            <div class="grid_6 column submit-project">
-                <form action="/" method="post" accept-charset="utf-8">
-                    {% csrf_token %}
-                    <div class="{% if form.url.errors %}field-error{% endif %}">
-                        {% if form.url.errors %}
-                            <div class="error-message">
-                                {{ form.url.errors }}
-                            </div>
-                        {% endif %}
-                        {{ form.url }}
-                    </div>
-                    <input type="submit" value="Manouche us"/>
-                </form>
-            </div>
+    <div class="grid_12 main">
+        <div class="grid_6 column description">
+            <h2>Manouche your project!</h2>
+            <p>Your project is great, rigth? Your layout is awesome? But your code, it's ok? Are you sure?</p>
+            <p>So I challenge you to submit it to more rigorous analysis and see if you tell the truth!</p>
+        </div>
+        <div class="grid_6 column submit-project">
+            <form action="/" method="post" accept-charset="utf-8">
+                {% csrf_token %}
+                <div class="{% if form.url.errors %}field-error{% endif %}">
+                    {% if form.url.errors %}
+                        <div class="error-message">
+                            {{ form.url.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.url }}
+                </div>
+                <input type="submit" value="Manouche us"/>
+            </form>
         </div>
     </div>
-</div>
-{% endblock %}
-
-{% block footer %}
-<div class="footer">
-</div>
 {% endblock %}
 
 {% block js_bottom %}

@@ -8,17 +8,31 @@
         {% endblock %}
     </head>
     <body>
-        {% block header %}
-        {% endblock %}
+        <div class="header">
+            <h1>Manouche Us</h1>
 
-        {% block menu %}
-        {% endblock %}
+            <div class="menu">
+                <ul>
+                    <li><a href="#">about</a></li>
+                    <li><a href="#">contribute</a></li>
+                </ul>
+                {% block header %}
+                {% endblock %}
+            </div>
+        </div>
 
-        {% block content %}
-        {% endblock %}
+        <div class="content">
+            <div class="row">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
 
-        {% block footer %}
-        {% endblock %}
+        <div class="footer">
+            {% block footer %}
+            {% endblock %}
+        </div>
+
 
         {% block js_bottom %}
         {% endblock %}
