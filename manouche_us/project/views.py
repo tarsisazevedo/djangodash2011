@@ -16,3 +16,6 @@ def index(request):
     context = {}
     context['form'] = form
     return TemplateResponse(request, "index.html", context)
+
+def analyze_project(request, project_id):
+    return HttpResponseRedirect("/show_report/%s/" % project_id)

@@ -1,7 +1,8 @@
 from django.utils import unittest
 from django.test import RequestFactory, Client
 
-from project.views import index
+from project.models import Project
+from project.views import index, analyze_project
 
 
 class TestViews(unittest.TestCase):
@@ -29,4 +30,17 @@ class TestViews(unittest.TestCase):
         location = response.items()[1]
         self.assertEquals(302, response.status_code)
         self.assertEquals(('Location', 'http://testserver/wait/'), location)
+
+
+class TestAnalyzeProjectView(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.project = Project.objects.get(id=1)
+
+    def test_analyze_project_view_should_return_a_http_redirect_status_code(self):
+        request_factory = RequestFactory()
+        request = request_factory.get("/analyze/1/")
+        response = analyze_project(request, self.project.id)
+
+        self.assertEquals(302, response.status_code)
 
