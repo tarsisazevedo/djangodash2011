@@ -21,6 +21,11 @@ def update_app():
         run("git pull origin master")
 
 @roles('server')
+def collect_static_files():
+    with cd(env.project_root):
+        run("%(virtualenv_dir)s/bin/python manage.py collectstatic -v 0 --noinput")
+
+@roles('server')
 def pip_install():
     run("%(virtualenv_dir)s/bin/pip install -r %(project_root)s/requirements_env.txt" % env)
 
@@ -62,5 +67,6 @@ def syncdb():
 def deploy():
     update_app()
     pip_install()
+    collect_static_files()
     restart_gunicorn()
     restart_nginx()
