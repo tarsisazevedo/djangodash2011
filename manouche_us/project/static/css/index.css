@@ -52,12 +52,42 @@ body {
 }
 
 .content .main .description {
+    margin-top: 65px;
     float: left;
+    overflow: hidden;
+    background-color: white;
+    width: 300px;
+    height: 230px;
+    border: 1px solid #E6E6E6;
+    margin-left: 100px;
+    padding: 20px 15px 20px 15px;
+    -moz-box-shadow: 0px 3px 3px #D6D6D6;
+    -webkit-box-shadow: 0px 3px 3px #D6D6D6;
+    box-shadow: 0px 3px 3px #D6D6D6;
+}
+
+.content .main .description h2 {
+    font-size: 24px;
+    text-align: center;
+    border-bottom: 1px #E8E8E8 solid;
+    color: #333333;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.content .main .description p {
+    font-size: 16px;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    color: #6D6D6D;
+    display: block;
 }
 
 .content .main .submit-project {
     float: right;
     padding-top: 100px;
+    overflow: hidden;
+    margin: 0;
 }
 
 .content .main .submit-project input[type="text"] {
