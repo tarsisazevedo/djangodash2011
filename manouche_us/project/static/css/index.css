@@ -43,10 +43,36 @@ body {
     text-decoration: none
 }
 
+.content {
+    background-color: #E1E6E6;
+}
+
 .content .main {
     height: 500px;
-    border: 1px solid black;
 }
+
+.content .main .description {
+    float: left;
+}
+
+.content .main .submit-project {
+    float: right;
+    padding-top: 100px;
+}
+
+.content .main .submit-project input[type="text"] {
+    border: 1px solid #C7C7C7;
+    background-color: white;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    width: 350px;
+    height: 28px;
+    padding: 5px 7px;
+    outline: 0;
+    font-size: 13px;
+    display: block;
+}
+
 .footer {
     height: 150px;
     border-top: 1px solid black;
