@@ -12,3 +12,5 @@ class SubmitProjectForm(ModelForm):
         self.instance.url = self.data['url']
         if not self.instance.validate_url():
             raise ValidationError("Url should be from github.com! I'm a fanboy :D")
+
+        return self.cleaned_data['url']
