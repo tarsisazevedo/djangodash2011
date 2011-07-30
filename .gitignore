@@ -1,5 +1,7 @@
 *.pyc
 *.db
-*.swp
+.*.swp
 manouche_us/static
 .ropeproject
+.DS_Store
+manouche_us/media/sources/extracted
