@@ -63,3 +63,4 @@ def deploy():
     update_app()
     pip_install()
     restart_gunicorn()
+    restart_nginx()
