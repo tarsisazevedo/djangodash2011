@@ -25,33 +25,33 @@ def pip_install():
     run("%(virtualenv_dir)s/bin/pip install -r %(project_root)s/requirements_env.txt" % env)
 
 @roles('server')
-def _start_gunicorn():
+def start_gunicorn():
     with cd(env.app_root):
         run("%(virtualenv_dir)s/bin/gunicorn_django -p gunicorn.pid --daemon --workers=4" % env)
 
 @roles('server')
-def _stop_gunicorn():
+def stop_gunicorn():
     with contextlib.nested(cd(env.app_root), settings(warn_only=True)):
         run("kill -9 `cat gunicorn.pid`")
 
 @roles('server')
-def _stop_nginx():
+def stop_nginx():
     run("sudo service nginx stop")
 
 @roles('server')
-def _start_nginx():
+def start_nginx():
     run("sudo service nginx start")
 
 @roles('server')
 def restart_nginx():
-    _stop_nginx()
-    _start_nginx()
+    stop_nginx()
+    start_nginx()
 
 @roles('server')
 def restart_gunicorn():
-    _stop_gunicorn()
+    stop_gunicorn()
     time.sleep(10)
-    _start_gunicorn()
+    start_gunicorn()
 
 @roles('server')
 def syncdb():
