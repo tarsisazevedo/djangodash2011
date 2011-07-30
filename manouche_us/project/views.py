@@ -4,7 +4,12 @@ from project.forms import SubmitProjectForm
 
 
 def index(request):
-    form = SubmitProjectForm()
+    if request.method == "POST":
+        form = SubmitProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = SubmitProjectForm()
 
     context = {}
     context['form'] = form
