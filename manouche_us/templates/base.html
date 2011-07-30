@@ -5,6 +5,7 @@
         {% block css %}
             <link rel="stylesheet" href="{{ STATIC_URL }}css/grid.css" type="text/css" media="screen" charset="utf-8"/>
             <link rel="stylesheet" href="{{ STATIC_URL }}css/reset-min.css" type="text/css" media="screen" charset="utf-8"/>
+            <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css" type="text/css" media="screen" charset="utf-8"/>
         {% endblock %}
     </head>
     <body>
@@ -23,8 +24,10 @@
 
         <div class="content">
             <div class="row">
-            {% block content %}
-            {% endblock %}
+                <div class="grid_12 main">
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
         </div>
 
