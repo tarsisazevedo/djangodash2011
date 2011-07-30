@@ -1,5 +1,5 @@
+import os
 import mimetypes
-import uuid
 
 from django.conf import settings
 from django.utils import unittest
@@ -38,3 +38,4 @@ class TestModels(unittest.TestCase):
         source_extracted = project.extract_code()
 
         self.assertTrue(project.source)
+        os.system("rm -Rf %s" % os.path.join(settings.PROJECT_ROOT, project.source))
