@@ -23,7 +23,7 @@ def update_app():
 @roles('server')
 def collect_static_files():
     with cd(env.project_root):
-        run("%(virtualenv_dir)s/bin/python manage.py collectstatic -v 0 --noinput")
+        run("%(virtualenv_dir)s/bin/python manage.py collectstatic -v 0 --noinput" % env)
 
 @roles('server')
 def pip_install():
