@@ -35,6 +35,19 @@ def _stop_gunicorn():
         run("kill -9 `cat gunicorn.pid`")
 
 @roles('server')
+def _stop_nginx():
+    run("sudo service nginx stop")
+
+@roles('server')
+def _start_nginx():
+    run("sudo service nginx start")
+
+@roles('server')
+def restart_nginx():
+    _stop_nginx()
+    _start_nginx()
+
+@roles('server')
 def restart_gunicorn():
     _stop_gunicorn()
     time.sleep(10)
@@ -45,3 +58,4 @@ def deploy():
     update_app()
     pip_install()
     restart_gunicorn()
+    restart_nginx()
