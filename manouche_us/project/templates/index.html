@@ -1,62 +1,41 @@
 {% extends "base.html" %}
 
-{% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css" type="text/css" media="screen" charset="utf-8"/>
-{% endblock %}
-
-{% block header %}
-<div class="header">
-    <h1>Manouche Us</h1>
-
-    <div class="menu">
-        <ul>
-            <li><a href="#">about</a></li>
-            <li><a href="#">contribute</a></li>
-        </ul>
-    </div>
-</div>
-{% endblock %}
-
 {% block content %}
-<div class="content">
-    <div class="row">
-        <div class="grid_12 main">
-            <div class="grid_6 column description">
-                <h2>Manouche your project!</h2>
-                <p>Your project is great, rigth? Your layout is awesome? But your code, it's ok? Are you sure?</p>
-                <p>So I challenge you to submit it to more rigorous analysis and see if you tell the truth!</p>
-            </div>
-            <div class="grid_6 column submit-project">
-                <form action="/" method="post" accept-charset="utf-8">
-                    {% csrf_token %}
+        <div class="grid_6 column description">
+            <h2>Manouche your project!</h2>
+            <p>Your project is great, rigth? Your layout is awesome? But your code, it's ok? Are you sure?</p>
+            <p>So I challenge you to submit it to more rigorous analysis and see if you tell the truth!</p>
+        </div>
+        <div class="grid_6 column submit-project">
+            <form action="/" method="post" accept-charset="utf-8">
+                {% csrf_token %}
+                <div class="{% if form.url.errors %}field-error{% endif %}">
+                    {% if form.url.errors %}
+                        <div class="error-message">
+                            {{ form.url.errors }}
+                        </div>
+                    {% endif %}
                     {{ form.url }}
-                    <input type="submit" value="Manouche us"/>
-                </form>
-            </div>
+                </div>
+                <input type="submit" value="Manouche us"/>
+            </form>
         </div>
     </div>
-</div>
-{% endblock %}
-
-{% block footer %}
-<div class="footer">
-</div>
 {% endblock %}
 
 {% block js_bottom %}
     <script src="{{ STATIC_URL }}js/mootools-core.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" language="javascript" charset="utf-8">
     //<![CDATA[
-        $("id_url").addEvent("blur", function(){
-            var text = this.get("text");
-            if ( text === null) {
-                this.set("value", "Submit your project if you are brave!");
-            }
-        });
-
-        $("id_url").addEvent("focus", function() {
-            this.set("value", "")
+        $("id_url").addEvents({
+                                "focus": function() {
+                                    this.set("value", "")
+                                },
+                                "blur": function() {
+                                    if ($("id_url").get("value") === "") {
+                                        $("id_url").set("value","Submit your project if you are brave!")
+                                    }
+                                }
         });
     //]]>
     </script>
