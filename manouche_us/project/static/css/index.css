@@ -3,7 +3,7 @@ body {
 }
 
 .header {
-    height: 150px;
+    height: 130px;
     border-bottom: 1px solid black;
     background-color: #76C2C1;
 }
@@ -48,7 +48,7 @@ body {
 }
 
 .content .main {
-    height: 500px;
+    height: 400px;
 }
 
 .content .main .description {
