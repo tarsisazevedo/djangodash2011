@@ -54,6 +54,11 @@ def restart_gunicorn():
     _start_gunicorn()
 
 @roles('server')
+def syncdb():
+    with cd(env.app_root):
+        run("%(virtualenv_dir)s/bin/python manage.py syncdb" % env)
+
+@roles('server')
 def deploy():
     update_app()
     pip_install()
