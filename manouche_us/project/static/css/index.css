@@ -3,8 +3,7 @@ body {
 }
 
 .header {
-    height: 130px;
-    border-bottom: 1px solid black;
+    height: 180px;
     background-color: #76C2C1;
 }
 
@@ -19,7 +18,7 @@ body {
 .menu {
     background-color: #BAE3E2;
     height: 50px;
-    border-bottom: 1px solid black;
+    margin-top: 50px;
 }
 
 .menu ul {
