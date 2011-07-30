@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/index.css" type="text/css" media="screen" charset="utf-8"/>
+{% endblock %}
+
+{% block header %}
+<div class="header">
+    <h1>Manouche Us</h1>
+</div>
+{% endblock %}
+
+{% block menu %}
+<div class="menu">
+
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+        <div class="grid_12 main">
+            <div class="grid_6 column">
+
+            </div>
+
+            <form action="/" method="post" accept-charset="utf-8" class="grid_6 column">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Continue &rarr;"/>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="footer">
+</div>
+{% endblock %}

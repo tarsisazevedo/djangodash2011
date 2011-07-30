@@ -56,7 +56,7 @@ def restart_gunicorn():
 @roles('server')
 def syncdb():
     with cd(env.app_root):
-        run("%(virtualenv_dir)s/bin/python manage.py syncdb" % env)
+        run("%(virtualenv_dir)s/bin/python manage.py syncdb --noinput && %(virtualenv_dir)s/bin/python manage.py createsuperuser --username=admin --email=admin@admin.com" % env)
 
 @roles('server')
 def deploy():
