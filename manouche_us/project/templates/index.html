@@ -15,7 +15,7 @@
 <div class="menu">
     <ul>
         <li><a href="#">about</a></li>
-        <li><a href="#">contribute</li>
+        <li><a href="#">contribute</a></li>
     </ul>
 </div>
 {% endblock %}
@@ -24,16 +24,16 @@
 <div class="content">
     <div class="row">
         <div class="grid_12 main">
-            <div class="grid_6 column">
-
+            <div class="grid_6 column description">
+                <p>chupa</p>
             </div>
-
-            <form action="/" method="post" accept-charset="utf-8" class="grid_6 column">
-                {% csrf_token %}
-
-                {{ form.as_p }}
-                <input type="submit" value="Continue &rarr;"/>
-            </form>
+            <div class="grid_6 column submit-project">
+                <form action="/" method="post" accept-charset="utf-8">
+                    {% csrf_token %}
+                    {{ form.url }}
+                    <input type="submit" value="Manouche us"/>
+                </form>
+            </div>
         </div>
     </div>
 </div>
