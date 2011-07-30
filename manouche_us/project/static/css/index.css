@@ -1,3 +1,7 @@
+body {
+    font-family: Helvetica, Arial;
+}
+
 .header {
     height: 150px;
     border-bottom: 1px solid black;
@@ -5,7 +9,6 @@
 }
 
 .header h1 {
-    font-family: Arial;
     font-weight: normal;
     font-size: 30px;
     margin-left: 70px;
@@ -14,6 +17,7 @@
 }
 
 .menu {
+    background-color: #BAE3E2;
     height: 50px;
     border-bottom: 1px solid black;
 }
@@ -27,6 +31,16 @@
     padding: 0 20px;
     margin-top: 15px;
     border-right: 1px solid black;
+}
+
+.menu ul li a:hover {
+    text-decoration: underline;
+}
+
+.menu ul li a {
+    color: #404040;
+    font-size: 15px;
+    text-decoration: none
 }
 
 .content .main {
