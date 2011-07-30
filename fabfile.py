@@ -2,6 +2,7 @@
 
 import contextlib
 import os
+import time
 from fabric.api import cd, env, roles, run, settings
 
 env.root = os.path.dirname(__file__)
@@ -26,16 +27,17 @@ def pip_install():
 @roles('server')
 def _start_gunicorn():
     with cd(env.app_root):
-        run("/etc/init.d/gunicorn-manouche start")
+        run("%(virtualenv_dir)s/bin/gunicorn_django -p gunicorn.pid --daemon --workers=4" % env)
 
 @roles('server')
 def _stop_gunicorn():
     with contextlib.nested(cd(env.app_root), settings(warn_only=True)):
-        run("/etc/init.d/gunicorn-manouche stop")
+        run("kill -9 `cat gunicorn.pid`")
 
 @roles('server')
 def restart_gunicorn():
     _stop_gunicorn()
+    time.sleep(10)
     _start_gunicorn()
 
 @roles('server')
