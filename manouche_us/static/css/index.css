@@ -1,0 +1,18 @@
+.header {
+    height: 150px;
+    border-bottom: 1px solid black;
+}
+
+.menu {
+    height: 50px;
+    border-bottom: 1px solid black;
+}
+
+.content .main {
+    height: 500px;
+    border: 1px solid black;
+}
+.footer {
+    height: 150px;
+    border-top: 1px solid black;
+}
