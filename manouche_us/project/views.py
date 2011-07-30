@@ -5,4 +5,7 @@ from project.forms import SubmitProjectForm
 
 def index(request):
     form = SubmitProjectForm()
-    return TemplateResponse(request, "index.html", {"form": form})
+
+    context = {}
+    context['form'] = form
+    return TemplateResponse(request, "index.html", context)
