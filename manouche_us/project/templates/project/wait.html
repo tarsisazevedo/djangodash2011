@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/wait.css" type="text/css" media="screen" charset="utf-8"/>
+{% endblock %}
+
 {% block content %}
     <div class="monkeys">
         <h2>Trained monkeys are analyzing your code, just relax!</h2>

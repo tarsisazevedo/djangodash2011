@@ -1,0 +1,28 @@
+.content .main .monkeys {
+    text-align: center;
+    margin: 30px 20px;
+    background-color: white;
+    width: 600px;
+    height: 320px;
+    border: 1px solid #E6E6E6;
+    margin-left: 100px;
+    padding: 20px 15px 20px 15px;
+    -moz-box-shadow: 0px 3px 3px #D6D6D6;
+    -webkit-box-shadow: 0px 3px 3px #D6D6D6;
+    box-shadow: 0px 3px 3px #D6D6D6;
+}
+
+.content .main .monkeys h2 {
+    color: #333333;
+    font-size: 24px;
+    text-align: center;
+    border-bottom: 1px #E8E8E8 solid;
+    color: #333333;
+    padding-bottom: 20px;
+}
+
+.content .main .monkeys img {
+    position: absolute;
+    right: 380px;
+    bottom: -160px;
+}
