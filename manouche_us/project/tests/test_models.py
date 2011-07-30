@@ -1,4 +1,5 @@
 import mimetypes
+import uuid
 
 from django.conf import settings
 from django.utils import unittest
@@ -36,4 +37,4 @@ class TestModels(unittest.TestCase):
 
         source_extracted = project.extract_code()
 
-        self.assertEquals(project.source, "/media/sources/extracted/fake-github/")
+        self.assertTrue(project.source)
