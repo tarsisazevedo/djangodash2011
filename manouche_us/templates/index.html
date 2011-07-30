@@ -26,7 +26,8 @@
             </div>
 
             <form action="/create-project/" method="post" accept-charset="utf-8" class="grid_6 column">
-                {{ form.as_p}}
+                {% csrf_token %}
+                {{ form.as_p }}
                 <input type="submit" value="Continue &rarr;"/>
             </form>
         </div>
