@@ -1,9 +1,9 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import ModelForm, URLField, ValidationError
 
 from project.models import Project
 
 class SubmitProjectForm(ModelForm):
-
+    url = URLField(initial="Submit your project if you are brave!")
     class Meta:
         model = Project
         exclude = ("source", )
