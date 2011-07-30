@@ -27,6 +27,7 @@
 
             <form action="/" method="post" accept-charset="utf-8" class="grid_6 column">
                 {% csrf_token %}
+
                 {{ form.as_p }}
                 <input type="submit" value="Continue &rarr;"/>
             </form>
