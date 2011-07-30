@@ -148,6 +148,6 @@ LOGGING = {
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 TESTS_APPS = ('django_nose',)
 NOSE_ARGS = ['--quiet', "-sd", '--nologcapture', '--with-coverage', '--cover-erase']
-NOSE_ARGS.extend(['--cover-package=cobertura', '--cover-package=menu', '--cover-package=notas', '--cover-package=dominios'])
+NOSE_ARGS.extend(['--cover-package=project'])
 NOSE_ARGS.append("--with-spec")
 NOSE_ARGS.append("--spec-color")
