@@ -42,3 +42,16 @@ class YouArePythonic(PEP8Achievement):
 class HelloGuido(PEP8Achievement):
     name = "Hello Guido"
     image = settings.STATIC_ROOT + "/img/guido.png"
+
+class CloneDiggerAchivement(object):
+    def __init__(self, result):
+        self.result = result
+
+    def get_achievement(self):
+        return YouAreGod(self.result)
+
+class YouAreGod(CloneDiggerAchivement):
+    name = "You are God"
+    image = settings.STATIC_ROOT + "/img/you_are_god.png"
+
+
