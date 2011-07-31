@@ -25,7 +25,7 @@ class BaseAnalyzerTestCase(unittest.TestCase):
 class CoverageAnalyzerTest(unittest.TestCase):
     def setUp(self):
         self.project = Project.objects.create(url="media/sources/fake-github.tar.gz")
-        self.analyzer = CoverageAnalyzer(self.project.id)
+        self.analyzer = CoverageAnalyzer(self.project)
 
     @unittest.skip
     def test_get_coverage_from_project(self):
@@ -35,7 +35,7 @@ class CoverageAnalyzerTest(unittest.TestCase):
 class ClonneDiggerTest(unittest.TestCase):
     def test_get_clonnedigger_report_from_project(self):
         project = Project.objects.create(url="media/sources/fake-github.tar.gz")
-        analyzer = ClonneDiggerAnalyzer(project.id)
+        analyzer = ClonneDiggerAnalyzer(project)
 
         self.assertAlmostEquals(19.24, analyzer.analyze())
 
@@ -54,4 +54,10 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
         )
 
     def test_py_lint_analyzer_should_go_to_project_source_folder_and_makes_analysis(self):
-        assert False
+        self.pylint_analyzer._extract_project_code_from_source()
+        project = Project.objects.get(id=self.project.id)
+        self.pylint_analyzer._run_analyzer('apps')
+        self.assertEquals(
+            os.getcwd() + '/',
+            os.path.join(settings.PROJECT_ROOT, project.source)
+        )

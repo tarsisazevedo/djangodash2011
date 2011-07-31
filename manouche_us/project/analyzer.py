@@ -91,9 +91,15 @@ class ClonneDiggerAnalyzer(BaseAnalyzer):
 class PyLintAnalyzer(BaseAnalyzer):
 
     def __init__(self, project):
-        super(BaseAnalyzer, self).__init__()
+        self.project = project
         self.config_file_path = os.path.join(
             settings.ANALYZERS_CONFIGURATION_DIR, 'pylint.cfg')
+        super(BaseAnalyzer, self).__init__()
+
+    def _run_analyzer(self, module):
+        os.chdir(
+            os.path.join(settings.PROJECT_ROOT, self.project.source)
+        )
 
     def analyze(self):
-        pass
+        project_modules = self.get_project_modules()
