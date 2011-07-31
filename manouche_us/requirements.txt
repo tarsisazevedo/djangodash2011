@@ -8,14 +8,11 @@ ipython==0.10.2
 lxml==2.3
 mechanize==0.2.5
 nose==1.1.1
-nosexcover==1.0.6.1
 paramiko==1.7.7.1
 pep8==0.6.1
-pinocchio==0.2
-pychecker==0.8.19
+git+git://github.com/unpluggd/pinocchio.git
 pycrypto==2.3
 pyflakes==0.4.0
-pymetrics==0.1
 pytz==2011h
 rdflib==3.1.0
 selenium==2.1.0
