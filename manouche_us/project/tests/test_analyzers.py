@@ -43,7 +43,7 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
     def setUp(self):
         self.project = Project.objects.create(url="media/sources/fake-github.tar.gz")
         self.pylint_analyzer = PyLintAnalyzer(self.project)
-        self.project_root_path = self.pylint_analyzer.get_project_root()
+        self.pylint_analyzer.get_project_modules()
 
     def tearDown(self):
         self.project.delete()
@@ -56,7 +56,7 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
 
     def test_py_lint_analyzer_should_go_to_project_source_folder(self):
         project = Project.objects.get(id=self.project.id)
-        self.pylint_analyzer._run_analyzer(self.project_root_path, 'apps')
+        self.pylint_analyzer._run_analyzer('apps')
         self.assertEquals(
             os.getcwd() + '/',
             os.path.join(settings.PROJECT_ROOT, project.source)
@@ -67,7 +67,7 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
 
     def test_py_lint_analyzer_should_generate_a_html_file_with_results_output_inside_project_source_folder(self):
         project = Project.objects.get(id=self.project.id)
-        self.pylint_analyzer._run_analyzer(self.project_root_path, 'apps')
+        self.pylint_analyzer._run_analyzer('apps')
         self.assertTrue('pylint_global.html' in os.listdir(os.getcwd()))
         self.pylint_analyzer._remove_extracted_code()
         #Going back to project main folder. This is necessary to don't break the following tests

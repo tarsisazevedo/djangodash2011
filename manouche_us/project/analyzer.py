@@ -12,6 +12,7 @@ class BaseAnalyzer(object):
 
     def __init__(self, project):
         self.project = project
+        self.project_root_path = ''
 
     def _extract_project_code_from_source(self):
         self.project.extract_code()
@@ -21,10 +22,9 @@ class BaseAnalyzer(object):
             settings.PROJECT_ROOT, self.project.source))
 
     def get_project_modules(self):
-        self._extract_project_code_from_source()
-        root = self.get_project_root()
+        self.project_root_path = self.get_project_root()
 
-        abspath_root = settings.PROJECT_ROOT + "/" + self.project.source + root + "/"
+        abspath_root = settings.PROJECT_ROOT + "/" + self.project.source + self.project_root_path + "/"
         modules = [directory for directory in os.listdir(abspath_root) if os.path.isdir(os.path.join(abspath_root, directory))]
 
         return modules
@@ -41,10 +41,9 @@ class BaseAnalyzer(object):
 
 class CoverageAnalyzer(BaseAnalyzer):
     def analyze(self):
-        project_root = self.get_project_root()
         project_modules = self.get_project_modules()
 
-        project_settings = self.project.source + project_root + "/settings.py"
+        project_settings = self.project.source + self.project_root_path + "/settings.py"
 
         TEST_RUNNER = 'TEST_RUNNER = "django_nose.NoseTestSuiteRunner"'
         TESTS_APPS = "TESTS_APPS = ('django_nose',)"
@@ -60,10 +59,10 @@ class CoverageAnalyzer(BaseAnalyzer):
         settings_file.write(NOSE_ARGS + "\n")
         settings_file.close()
 
-        os.system("python " + self.project.source + project_root + "/manage.py test")
+        os.system("python " + self.project.source + self.project_root_path + "/manage.py test")
 
         browser = Browser("zope.testbrowser")
-        browser.visit("file://" + settings.PROJECT_ROOT + "/" +  self.project.source + project_root + "/index.html")
+        browser.visit("file://" + settings.PROJECT_ROOT + "/" +  self.project.source + self.project_root_path + "/index.html")
         percent = browser.find_by_css("#index tfoot tr .right").text
 
         self._remove_extracted_code()
@@ -104,15 +103,18 @@ class PyLintAnalyzer(BaseAnalyzer):
             settings.ANALYZERS_CONFIGURATION_DIR, 'pylint.cfg')
         super(BaseAnalyzer, self).__init__()
 
-    def _run_analyzer(self, project_root_path, module):
+    def _run_analyzer(self, module):
         os.chdir(
             os.path.join(settings.PROJECT_ROOT, self.project.source)
         )
 
-        os.system("pylint --rcfile=%s %s" % (self.config_file_path, os.path.join(project_root_path, module)))
+        os.system("pylint --rcfile=%s %s" % (self.config_file_path, os.path.join(self.project_root_path, module)))
 
     def analyze(self):
         project_modules = self.get_project_modules()
+        for module in project_modules:
+            pass
+
         self._remove_extracted_code()
 
 
