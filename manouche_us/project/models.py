@@ -32,7 +32,6 @@ class Project(models.Model):
         self.save()
 
     def download_project(self):
-        import ipdb;ipdb.set_trace()
         url = self.url
         if not url.endswith("/"):
             url += "/"
