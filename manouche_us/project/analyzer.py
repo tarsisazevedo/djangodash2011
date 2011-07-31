@@ -97,3 +97,10 @@ class PyLintAnalyzer(BaseAnalyzer):
 
     def analyze(self):
         pass
+
+class PEP8Analyzer(BaseAnalyzer):
+    def analyze(self):
+        self.get_project_modules()
+        os.system("pep8 --statistics " + self.project.source + " --count" + " | grep ^[0-9] | cut -d' ' -f1 >> " + self.project.source + "output-pep8.txt")
+
+        import pdb; pdb.set_trace()
