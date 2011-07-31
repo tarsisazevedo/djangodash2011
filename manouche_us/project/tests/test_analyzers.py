@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import unittest
 
 from project.models import Project
-from project.analyzer import BaseAnalyzer, CoverageAnalyzer, ClonneDiggerAnalyzer, PyLintAnalyzer
+from project.analyzer import BaseAnalyzer, CoverageAnalyzer, ClonneDiggerAnalyzer, PyLintAnalyzer, PEP8Analyzer
 
 class BaseAnalyzerTestCase(unittest.TestCase):
     def setUp(self):
@@ -61,3 +61,11 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
             os.getcwd() + '/',
             os.path.join(settings.PROJECT_ROOT, project.source)
         )
+
+
+class PEP8Test(unittest.TestCase):
+    def test_get_pep8_report_from_project(self):
+        project = Project.objects.create(url="media/sources/fake-github.tar.gz")
+        pep8_analyzer = PEP8Analyzer(project)
+
+        self.assertTrue(921, pep8_analyzer.analyze())

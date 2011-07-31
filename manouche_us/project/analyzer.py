@@ -38,6 +38,7 @@ class BaseAnalyzer(object):
     def analyze(self):
         raise NotImplementedError
 
+
 class CoverageAnalyzer(BaseAnalyzer):
     def analyze(self):
         project_root = self.get_project_root()
@@ -66,6 +67,7 @@ class CoverageAnalyzer(BaseAnalyzer):
         percent = browser.find_by_css("#index tfoot tr .right").text
         return int(percent.replace("%", ""))
 
+
 class ClonneDiggerAnalyzer(BaseAnalyzer):
     def analyze(self):
         self.get_project_modules()
@@ -88,6 +90,7 @@ class ClonneDiggerAnalyzer(BaseAnalyzer):
         safe_numbers = infos.partition("(")
         return float(safe_numbers[2].partition("%)")[0])
 
+
 class PyLintAnalyzer(BaseAnalyzer):
 
     def __init__(self, project):
@@ -103,3 +106,12 @@ class PyLintAnalyzer(BaseAnalyzer):
 
     def analyze(self):
         project_modules = self.get_project_modules()
+
+
+class PEP8Analyzer(BaseAnalyzer):
+    def analyze(self):
+        self.get_project_modules()
+        os.system("pep8 --statistics " + self.project.source + " --count" + " | grep ^[0-9] | cut -d' ' -f1 >> " + self.project.source + "output-pep8.txt")
+        pep8_output = open(self.project.source + "output-pep8.txt", "r")
+
+        return sum( map( int, pep8_output.readlines() ) )
