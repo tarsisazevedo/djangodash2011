@@ -19,7 +19,7 @@ class PEP8Achievement(object):
         elif self.result > self.SENIOR_PYTHONIST:
             return SeniorPythonist(self.result)
         elif self.result > self.U_ARE_PYTHONIC:
-            return YouArePythonic()
+            return YouArePythonic(self.result)
         elif self.result == self.GUIDO:
             return HelloGuido()
 
@@ -35,8 +35,9 @@ class SeniorPythonist(PEP8Achievement):
     name = "Senior Pythonist"
     image = settings.STATIC_ROOT + "/img/senior_pythonist.png"
 
-class YouArePythonic(object):
-    pass
+class YouArePythonic(PEP8Achievement):
+    name = "You are pythonic"
+    image = settings.STATIC_ROOT + "/img/u_are_pythonic.png"
 
 class HelloGuido(object):
     pass
