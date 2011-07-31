@@ -1,5 +1,6 @@
 import tarfile
 import uuid
+import urllib2
 
 from django.db import models
 from django.conf import settings
@@ -19,7 +20,8 @@ class Project(models.Model):
     def get_source(self):
         if not self.validate_url():
             raise ProjectUrlException()
-        return File(self.url)
+        tar_path = self.download_project()
+        return File(tar_path)
 
     def extract_code(self):
         source_tar = self.get_source()
@@ -28,3 +30,13 @@ class Project(models.Model):
         self.source = settings.MEDIA_URL + "sources/extracted/%s/" % uuid.uuid4()
         source.extractall(path=self.source)
         self.save()
+
+    def download_project(self):
+        request_package = urllib2.Request(self.url + "tarball/master")
+        package = urllib2.urlopen(request_package)
+        local_name = package.info()["Content-Disposition"].split('filename=')[1]
+        file_package = open(settings.MEDIA_URL + "sources/" + local_name, "wb")
+        file_package.write(package.read())
+        file_package.close()
+
+        return settings.MEDIA_URL + "sources/" + local_name

@@ -35,7 +35,7 @@ class TestViews(unittest.TestCase):
 class TestAnalyzeProjectView(unittest.TestCase):
     def setUp(self):
         self.client = Client()
-        self.project = Project.objects.get(id=1)
+        self.project = Project.objects.create(url='media/sources/fake-github.tar.gz')
 
     def test_analyze_project_view_should_return_a_http_redirect_status_code(self):
         request_factory = RequestFactory()
@@ -47,4 +47,9 @@ class TestAnalyzeProjectView(unittest.TestCase):
         self.assertTrue(response.context_data['achievements'])
         self.assertEquals(pep8_achievement.name, "Fake Pythonist")
         self.assertEquals(pep8_achievement.result, 921)
+
+    def test_url_is_accessible(self):
+        response = self.client.post("/%d/result/" % self.project.id)
+
+        self.assertEquals(200, response.status_code)
 
