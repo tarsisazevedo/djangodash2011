@@ -10,8 +10,8 @@ def index(request):
     if request.method == "POST":
         form = SubmitProjectForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/wait/")
+            instance = form.save()
+            return HttpResponseRedirect("/%s/result/" % instance.id)
     else:
         form = SubmitProjectForm()
 
@@ -26,4 +26,5 @@ def analyze_project(request, project_id):
     pep8_badge = PEP8Achievement(result_pep8)
     context = {}
     context['achievements'] = [pep8_badge.get_achievement()]
+
     return TemplateResponse(request, "project/result.html", context)
