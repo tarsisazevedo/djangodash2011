@@ -32,6 +32,10 @@ class Project(models.Model):
         self.save()
 
     def download_project(self):
+        import ipdb;ipdb.set_trace()
+        url = self.url
+        if not url.endswith("/"):
+            url += "/"
         request_package = urllib2.Request(self.url + "tarball/master")
         package = urllib2.urlopen(request_package)
         local_name = package.info()["Content-Disposition"].split('filename=')[1]
