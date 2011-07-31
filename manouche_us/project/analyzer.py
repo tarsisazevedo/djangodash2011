@@ -65,6 +65,9 @@ class CoverageAnalyzer(BaseAnalyzer):
         browser = Browser("zope.testbrowser")
         browser.visit("file://" + settings.PROJECT_ROOT + "/" +  self.project.source + project_root + "/index.html")
         percent = browser.find_by_css("#index tfoot tr .right").text
+
+        self._remove_extracted_code()
+
         return int(percent.replace("%", ""))
 
 
@@ -74,6 +77,8 @@ class ClonneDiggerAnalyzer(BaseAnalyzer):
         os.system("clonedigger " + self.project.source + "/")
 
         infos = self._extract_infos()
+
+        self._remove_extracted_code()
 
         return self.format_infos(infos)
 
@@ -99,13 +104,16 @@ class PyLintAnalyzer(BaseAnalyzer):
             settings.ANALYZERS_CONFIGURATION_DIR, 'pylint.cfg')
         super(BaseAnalyzer, self).__init__()
 
-    def _run_analyzer(self, module):
+    def _run_analyzer(self, project_root_path, module):
         os.chdir(
             os.path.join(settings.PROJECT_ROOT, self.project.source)
         )
 
+        os.system("pylint --rcfile=%s %s" % (self.config_file_path, os.path.join(project_root_path, module)))
+
     def analyze(self):
         project_modules = self.get_project_modules()
+        self._remove_extracted_code()
 
 
 class PEP8Analyzer(BaseAnalyzer):
@@ -113,5 +121,7 @@ class PEP8Analyzer(BaseAnalyzer):
         self.get_project_modules()
         os.system("pep8 --statistics " + self.project.source + " --count" + " | grep ^[0-9] | cut -d' ' -f1 >> " + self.project.source + "output-pep8.txt")
         pep8_output = open(self.project.source + "output-pep8.txt", "r")
+
+        self._remove_extracted_code()
 
         return sum( map( int, pep8_output.readlines() ) )
