@@ -145,6 +145,11 @@ LOGGING = {
     }
 }
 
+ANALYZERS_CONFIGURATION_DIR = os.path.join(
+    PROJECT_ROOT,
+    'analyzers_configs'
+)
+
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 TESTS_APPS = ('django_nose',)
 NOSE_ARGS = ['--quiet', "-sd", '--nologcapture', '--with-coverage', '--cover-erase', "--cover-html"]
