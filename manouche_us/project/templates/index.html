@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block js_bottom %}
-    <script src="{{ STATIC_URL }}js/mootools-core.js" type="text/javascript" charset="utf-8"></script>
+    {{ block.super }}
     <script type="text/javascript" language="javascript" charset="utf-8">
     //<![CDATA[
         $("id_url").addEvents({
