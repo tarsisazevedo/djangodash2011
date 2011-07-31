@@ -12,3 +12,15 @@
         <div id="monkey-image"></div>
     </div>
 {% endblock %}
+
+{% block js_bottom %}
+    {{ block.super }}
+    <script type="text/javascript" language="javascript" charset="utf-8">
+    //<![CDATA[
+        var request = new Request({
+                    url: "{% url analyze 2 %}",
+                });
+        request.send();
+    //]]>
+    </script>
+{% endblock %}
