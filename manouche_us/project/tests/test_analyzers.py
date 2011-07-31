@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import unittest
 
 from project.models import Project
-from project.analyzer import BaseAnalyzer, CoverageAnalyzer, ClonneDiggerAnalyzer, PyLintAnalyzer
+from project.analyzer import BaseAnalyzer, CoverageAnalyzer, ClonneDiggerAnalyzer, PyLintAnalyzer, PEP8Analyzer
 
 class BaseAnalyzerTestCase(unittest.TestCase):
     def setUp(self):
@@ -25,7 +25,7 @@ class BaseAnalyzerTestCase(unittest.TestCase):
 class CoverageAnalyzerTest(unittest.TestCase):
     def setUp(self):
         self.project = Project.objects.create(url="media/sources/fake-github.tar.gz")
-        self.analyzer = CoverageAnalyzer(self.project.id)
+        self.analyzer = CoverageAnalyzer(self.project)
 
     @unittest.skip
     def test_get_coverage_from_project(self):
@@ -35,7 +35,7 @@ class CoverageAnalyzerTest(unittest.TestCase):
 class ClonneDiggerTest(unittest.TestCase):
     def test_get_clonnedigger_report_from_project(self):
         project = Project.objects.create(url="media/sources/fake-github.tar.gz")
-        analyzer = ClonneDiggerAnalyzer(project.id)
+        analyzer = ClonneDiggerAnalyzer(project)
 
         self.assertAlmostEquals(19.24, analyzer.analyze())
 
@@ -53,3 +53,10 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
             self.pylint_analyzer.config_file_path,
             os.path.join(settings.ANALYZERS_CONFIGURATION_DIR,'pylint.cfg')
         )
+
+class PEP8Test(unittest.TestCase):
+    def test_get_pep8_report_from_project(self):
+        project = Project.objects.create(url="media/sources/fake-github.tar.gz")
+        pep8_analyzer = PEP8Analyzer(project)
+
+        self.assertTrue(0, pep8_analyzer.analyze())
