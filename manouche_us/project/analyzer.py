@@ -102,5 +102,6 @@ class PEP8Analyzer(BaseAnalyzer):
     def analyze(self):
         self.get_project_modules()
         os.system("pep8 --statistics " + self.project.source + " --count" + " | grep ^[0-9] | cut -d' ' -f1 >> " + self.project.source + "output-pep8.txt")
+        pep8_output = open(self.project.source + "output-pep8.txt", "r")
 
-        import pdb; pdb.set_trace()
+        return sum( map( int, pep8_output.readlines() ) )
