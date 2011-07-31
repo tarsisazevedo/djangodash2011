@@ -39,8 +39,12 @@ class TestAnalyzeProjectView(unittest.TestCase):
 
     def test_analyze_project_view_should_return_a_http_redirect_status_code(self):
         request_factory = RequestFactory()
-        request = request_factory.get("/analyze/1/")
+        request = request_factory.get("/1/result/")
         response = analyze_project(request, self.project.id)
 
-        self.assertEquals(302, response.status_code)
+        pep8_achievement = response.context_data["achievements"][0]
+
+        self.assertTrue(response.context_data['achievements'])
+        self.assertEquals(pep8_achievement.name, "Fake Pythonist")
+        self.assertEquals(pep8_achievement.result, 921)
 
