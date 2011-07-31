@@ -1,3 +1,6 @@
+from django.conf import settings
+
+
 class PEP8Achievement(object):
     FAKE_PYTHONIST = 300
     NEWBIE_PYTHONIST = 100
@@ -22,9 +25,11 @@ class PEP8Achievement(object):
 
 class FakePythonist(PEP8Achievement):
     name = "Fake Pythonist"
+    image = settings.STATIC_ROOT + "/img/fake_pythonist.png"
 
-class NewbiePythonist(object):
-    pass
+class NewbiePythonist(PEP8Achievement):
+    name = "Newbie Pythonist"
+    image = settings.STATIC_ROOT + "/img/newbie_pythonist.png"
 
 class SeniorPythonist(object):
     pass
