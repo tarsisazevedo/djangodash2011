@@ -44,14 +44,22 @@ class HelloGuido(PEP8Achievement):
     image = settings.STATIC_ROOT + "/img/guido.png"
 
 class CloneDiggerAchivement(object):
+    YOU_ARE_GOD = 80
+    MANY_CHILDRENS = 50
+
     def __init__(self, result):
         self.result = result
 
     def get_achievement(self):
-        return YouAreGod(self.result)
+        if self.result > self.YOU_ARE_GOD:
+            return YouAreGod(self.result)
+        else:
+            return ManyChildren(self.result)
 
 class YouAreGod(CloneDiggerAchivement):
     name = "You are God"
     image = settings.STATIC_ROOT + "/img/you_are_god.png"
 
-
+class ManyChildren(CloneDiggerAchivement):
+    name = "Many children"
+    image = settings.STATIC_ROOT + "/img/many_children.png"
