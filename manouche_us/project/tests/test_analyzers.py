@@ -31,9 +31,11 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
     def tearDown(self):
         self.project.delete()
 
-    def test_py_lint_should_get_correct_config_file_when_instantiate(self):
-        import ipdb;ipdb.set_trace()
+    def test_py_lint_analyzer_should_get_correct_config_file_when_instantiate(self):
         self.assertEquals(
             self.pylint_analyzer.config_file_path,
             os.path.join(settings.ANALYZERS_CONFIGURATION_DIR,'pylint.cfg')
         )
+
+    def test_py_lint_analyzer_should_go_to_project_source_folder_and_makes_analysis(self):
+        assert False
