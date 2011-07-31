@@ -35,6 +35,9 @@ class BaseAnalyzer(object):
 
         return root[0]
 
+    def _extract_infos(self):
+        raise NotImplementedError
+
     def analyze(self):
         raise NotImplementedError
 
@@ -47,7 +50,7 @@ class CoverageAnalyzer(BaseAnalyzer):
 
         TEST_RUNNER = 'TEST_RUNNER = "django_nose.NoseTestSuiteRunner"'
         TESTS_APPS = "TESTS_APPS = ('django_nose',)"
-        NOSE_ARGS = ['--quiet', "-sd", '--nologcapture', '--with-coverage', '--cover-erase', '--cover-html', '--cover-html-dir=' + self.project.source + project_root, '--with-spec', '--spec-color']
+        NOSE_ARGS = ['--quiet', "-sd", '--nologcapture', '--with-coverage', '--cover-erase', '--cover-html', '--cover-html-dir=' + self.project.source + self.project_root_path, '--with-spec', '--spec-color']
 
         MODULES = ["--cover-package=" + module for module in project_modules]
         NOSE_ARGS.extend(MODULES)
@@ -108,14 +111,33 @@ class PyLintAnalyzer(BaseAnalyzer):
             os.path.join(settings.PROJECT_ROOT, self.project.source)
         )
 
-        os.system("pylint --rcfile=%s %s" % (self.config_file_path, os.path.join(self.project_root_path, module)))
+        os.system("pylint --rcfile=%s %s" % (self.config_file_path,
+                                             os.path.join(
+                                                 self.project_root_path,
+                                                 module)
+                                            ))
+        os.chdir(settings.PROJECT_ROOT)
+
+    def _extract_infos(self):
+        pylint_report = open(os.path.join(self.project.source, "pylint_global.txt"), "r")
+        lines = pylint_report.readlines()
+        pylint_report.close()
+        evaluation_ratio = lines[lines.index('Global evaluation\n') + 2]
+
+        return float(evaluation_ratio[
+            evaluation_ratio.find("t ") + 2:evaluation_ratio.find("/")
+        ])
 
     def analyze(self):
         project_modules = self.get_project_modules()
         for module in project_modules:
-            pass
+            self._run_analyzer(module)
+
+        infos = self._extract_infos()
 
         self._remove_extracted_code()
+        return infos
+
 
 
 class PEP8Analyzer(BaseAnalyzer):

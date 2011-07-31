@@ -22,6 +22,10 @@ class BaseAnalyzerTestCase(unittest.TestCase):
     def test_base_analyzer_analyze_should_raises_not_implemented_error(self):
         self.assertRaises(NotImplementedError, self.analyzer.analyze)
 
+    def test_base_analyzer__extract_infos_should_raises_not_implemented_error(self):
+        self.assertRaises(NotImplementedError, self.analyzer._extract_infos)
+
+
 class CoverageAnalyzerTest(unittest.TestCase):
     def setUp(self):
         self.project = Project.objects.create(url="media/sources/fake-github.tar.gz")
@@ -54,24 +58,14 @@ class PyLintAnalyzerTestCase(unittest.TestCase):
             os.path.join(settings.ANALYZERS_CONFIGURATION_DIR,'pylint.cfg')
         )
 
-    def test_py_lint_analyzer_should_go_to_project_source_folder(self):
+    def test_py_lint_analyzer_should_generate_a_text_file_with_results_output_inside_project_source_folder(self):
         project = Project.objects.get(id=self.project.id)
         self.pylint_analyzer._run_analyzer('apps')
-        self.assertEquals(
-            os.getcwd() + '/',
-            os.path.join(settings.PROJECT_ROOT, project.source)
-        )
+        self.assertTrue('pylint_global.txt' in os.listdir(project.source))
         self.pylint_analyzer._remove_extracted_code()
-        #Going back to project main folder. This is necessary to don't break the following tests
-        os.chdir(settings.PROJECT_ROOT)
 
-    def test_py_lint_analyzer_should_generate_a_html_file_with_results_output_inside_project_source_folder(self):
-        project = Project.objects.get(id=self.project.id)
-        self.pylint_analyzer._run_analyzer('apps')
-        self.assertTrue('pylint_global.html' in os.listdir(os.getcwd()))
-        self.pylint_analyzer._remove_extracted_code()
-        #Going back to project main folder. This is necessary to don't break the following tests
-        os.chdir(settings.PROJECT_ROOT)
+    def test_pylint_analyzer_should_returns_processed_output_infos(self):
+        self.assertAlmostEquals(-15.33, self.pylint_analyzer.analyze())
 
 
 class PEP8Test(unittest.TestCase):
