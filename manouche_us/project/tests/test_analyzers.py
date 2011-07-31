@@ -59,4 +59,4 @@ class PEP8Test(unittest.TestCase):
         project = Project.objects.create(url="media/sources/fake-github.tar.gz")
         pep8_analyzer = PEP8Analyzer(project)
 
-        self.assertTrue(0, pep8_analyzer.analyze())
+        self.assertTrue(921, pep8_analyzer.analyze())
