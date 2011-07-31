@@ -2,7 +2,7 @@ from django.utils import unittest
 from django.conf import settings
 
 from project.achievements import PEP8Achievement, FakePythonist, NewbiePythonist, SeniorPythonist, YouArePythonic, HelloGuido
-from project.achievements import CloneDiggerAchivement, YouAreGod
+from project.achievements import CloneDiggerAchivement, YouAreGod, ManyChildren
 
 
 class TestPEP8Achievement(unittest.TestCase):
@@ -54,3 +54,11 @@ class TestCloneDigger(unittest.TestCase):
         self.assertTrue(isinstance( clone_digger_achievement, YouAreGod ))
         self.assertEquals(clone_digger_achievement.name, "You are God")
         self.assertEquals(clone_digger_achievement.image, settings.STATIC_ROOT + "/img/you_are_god.png")
+
+    def test_many_chidlren(self):
+        clone_digger_result = 51.0
+        clone_digger_achievement = CloneDiggerAchivement(clone_digger_result).get_achievement()
+
+        self.assertTrue(isinstance( clone_digger_achievement, ManyChildren ))
+        self.assertEquals(clone_digger_achievement.name, "Many children")
+        self.assertEquals(clone_digger_achievement.image, settings.STATIC_ROOT + "/img/many_children.png")
